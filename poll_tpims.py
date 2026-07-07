@@ -1,8 +1,12 @@
-"""Park Alive — TPIMS poller (5 open MAASTO feeds, no registration).
+"""Park Alive — TPIMS poller + weather logger (US runners, GitHub Actions).
 
-Runs on GitHub Actions (US runners). Fetches dynamic+static TPIMS feeds for
-IL, IN, KY, MN, OH, normalizes rows, appends to daily CSV, keeps one raw
-snapshot per state per day. Veracity rule: store what the feed says, never invent.
+Fetches dynamic+static TPIMS feeds for IL, IN, KY, MN, OH, normalizes rows,
+appends to daily CSV, keeps one raw snapshot per state per day. THEN, for each
+site, records the CURRENT weather from NWS (api.weather.gov, free) so every
+occupancy reading can be paired with the weather of that moment.
+
+Veracity rule: store what the feeds say, never invent.
+Weather is fail-soft: if it errors, TPIMS collection is unaffected.
 """
 
 from __future__ import annotations
@@ -11,6 +15,7 @@ import csv
 import gzip
 import json
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -44,11 +49,29 @@ FEEDS = {
 
 HEADERS = {"User-Agent": "ParkAlive/1.0 (parkalive.app@gmail.com; TPIMS research poller)"}
 
-# Normalized columns (TPIMS Data Exchange Spec V2.2, defensive extraction)
+# Normalized TPIMS columns (Data Exchange Spec V2.2, defensive extraction)
 COLUMNS = [
     "polled_at_utc", "state", "site_id", "time_stamp", "reported_available",
     "capacity", "trend", "open", "trust_data", "low_threshold",
 ]
+
+# --- Weather (NWS) -----------------------------------------------------------
+NWS_HEADERS = {
+    "User-Agent": "ParkAlive/1.0 (parkalive.app@gmail.com; weather logger)",
+    "Accept": "application/geo+json",
+}
+WEATHER_COLUMNS = [
+    "polled_at_utc", "state", "site_id", "lat", "lng", "temp_f", "short_forecast",
+    "precip_pct", "wind_mph", "snow", "ice", "is_rain", "is_heavy_rain",
+    "state_severe_alert", "m_weather_delta",
+]
+# Truck-parking-relevant severe events (mirror of engine NWS allow-list).
+SEVERE_EVENTS = {
+    "Winter Storm Warning", "Ice Storm Warning", "Blizzard Warning",
+    "Tornado Warning", "Severe Thunderstorm Warning", "High Wind Warning",
+    "Dense Fog Advisory", "Flood Warning",
+}
+MAX_WEATHER_POINTS = 600  # safety cap on NWS calls per run
 
 
 def _get(d: dict, *names):
@@ -81,6 +104,196 @@ def fetch(url: str) -> tuple[object | None, str]:
         return None, f"{type(e).__name__}: {e}"
 
 
+def _wfetch(url: str) -> object | None:
+    try:
+        r = requests.get(url, headers=NWS_HEADERS, timeout=30)
+        r.raise_for_status()
+        return r.json()
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _valid_latlng(lat, lng) -> tuple[float, float] | None:
+    try:
+        la, ln = float(lat), float(lng)
+    except (TypeError, ValueError):
+        return None
+    if 15 < la < 72 and -170 < ln < -50:  # plausible continental/AK US
+        return la, ln
+    return None
+
+
+def _find_coords(obj) -> tuple[float, float] | None:
+    """Recursively search a record for a plausible (lat, lng) pair."""
+    if isinstance(obj, dict):
+        c = _valid_latlng(_get(obj, "latitude", "lat"),
+                          _get(obj, "longitude", "lon", "lng", "long"))
+        if c:
+            return c
+        # GeoJSON point: coordinates = [lng, lat]
+        coords = obj.get("coordinates")
+        if (isinstance(coords, list) and len(coords) >= 2
+                and all(isinstance(x, (int, float)) for x in coords[:2])):
+            c = _valid_latlng(coords[1], coords[0])
+            if c:
+                return c
+        for v in obj.values():
+            r = _find_coords(v)
+            if r:
+                return r
+    elif isinstance(obj, list):
+        for v in obj:
+            r = _find_coords(v)
+            if r:
+                return r
+    return None
+
+
+def _classify(short: str):
+    s = (short or "").lower()
+    snow = any(w in s for w in ("snow", "blizzard", "flurr", "wintry"))
+    ice = any(w in s for w in ("ice", "freezing", "sleet"))
+    heavy = any(w in s for w in ("heavy rain", "thunderstorm", "hail"))
+    rain = any(w in s for w in ("rain", "showers", "drizzle"))
+    return snow, ice, rain, heavy
+
+
+def _m_weather_delta(severe, snow, ice, heavy, rain) -> float:
+    if severe:
+        return 0.20
+    if snow or ice:
+        return 0.15
+    if heavy:
+        return 0.10
+    if rain:
+        return 0.05
+    return 0.0
+
+
+def _load_grid_cache() -> dict:
+    p = DATA / "nws_grid_cache.json"
+    if p.exists():
+        try:
+            return json.loads(p.read_text())
+        except Exception:  # noqa: BLE001
+            return {}
+    return {}
+
+
+def _save_grid_cache(cache: dict) -> None:
+    (DATA / "nws_grid_cache.json").write_text(json.dumps(cache))
+
+
+def collect_weather(day_dir: Path, stamp: str, present_states: list[str]) -> tuple[int, str]:
+    """For each TPIMS site (coords from today's static snapshots), log current NWS
+    weather. Returns (rows_written, note). Never raises."""
+    # 1) sites with coordinates from static snapshots
+    sites: list[tuple[str, str, float, float]] = []  # state, site_id, lat, lng
+    for state in present_states:
+        sp = day_dir / f"static_{state}.json.gz"
+        if not sp.exists():
+            continue
+        try:
+            with gzip.open(sp, "rt") as gz:
+                payload = json.load(gz)
+        except Exception:  # noqa: BLE001
+            continue
+        for rec in _rows_from_payload(payload):
+            coords = _find_coords(rec)
+            if not coords:
+                continue
+            sid = _get(rec, "siteId", "id", "site") or ""
+            sites.append((state, str(sid), round(coords[0], 4), round(coords[1], 4)))
+
+    if not sites:
+        return 0, "no site coordinates in static feeds"
+
+    # 2) per-state severe alerts (one call per state)
+    state_severe: dict[str, bool] = {}
+    for state in present_states:
+        data = _wfetch(f"https://api.weather.gov/alerts/active?area={state}")
+        events = set()
+        if isinstance(data, dict):
+            for f in data.get("features", []):
+                ev = (f.get("properties") or {}).get("event")
+                if ev:
+                    events.add(ev)
+        state_severe[state] = bool(events & SEVERE_EVENTS)
+        time.sleep(0.2)
+
+    # 3) unique points -> resolve grid (cached) -> current hourly weather
+    cache = _load_grid_cache()
+    point_wx: dict[tuple[float, float], dict] = {}
+    unique_points = list({(la, ln) for _, _, la, ln in sites})[:MAX_WEATHER_POINTS]
+    for la, ln in unique_points:
+        key = f"{la},{ln}"
+        hourly_url = cache.get(key)
+        if not hourly_url:
+            pts = _wfetch(f"https://api.weather.gov/points/{la},{ln}")
+            if isinstance(pts, dict):
+                hourly_url = (pts.get("properties") or {}).get("forecastHourly")
+                if hourly_url:
+                    cache[key] = hourly_url
+            time.sleep(0.2)
+        if not hourly_url:
+            continue
+        hr = _wfetch(hourly_url)
+        time.sleep(0.2)
+        try:
+            per = hr["properties"]["periods"][0]
+        except (TypeError, KeyError, IndexError):
+            continue
+        short = per.get("shortForecast") or ""
+        precip = (per.get("probabilityOfPrecipitation") or {}).get("value")
+        wind = per.get("windSpeed") or ""
+        wind_mph = None
+        for tok in str(wind).split():
+            if tok.isdigit():
+                wind_mph = int(tok)
+                break
+        point_wx[(la, ln)] = {
+            "temp_f": per.get("temperature"),
+            "short_forecast": short,
+            "precip_pct": precip,
+            "wind_mph": wind_mph,
+        }
+    _save_grid_cache(cache)
+
+    # 4) write one weather row per site
+    wx_path = day_dir / "weather.csv"
+    new_file = not wx_path.exists()
+    written = 0
+    with wx_path.open("a", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=WEATHER_COLUMNS)
+        if new_file:
+            w.writeheader()
+        for state, sid, la, ln in sites:
+            wx = point_wx.get((la, ln))
+            if not wx:
+                continue
+            snow, ice, rain, heavy = _classify(wx["short_forecast"])
+            severe = state_severe.get(state, False)
+            w.writerow({
+                "polled_at_utc": stamp,
+                "state": state,
+                "site_id": sid,
+                "lat": la,
+                "lng": ln,
+                "temp_f": wx["temp_f"],
+                "short_forecast": wx["short_forecast"],
+                "precip_pct": wx["precip_pct"],
+                "wind_mph": wx["wind_mph"],
+                "snow": snow,
+                "ice": ice,
+                "is_rain": rain,
+                "is_heavy_rain": heavy,
+                "state_severe_alert": severe,
+                "m_weather_delta": _m_weather_delta(severe, snow, ice, heavy, rain),
+            })
+            written += 1
+    return written, f"{len(unique_points)} points, {len(sites)} sites"
+
+
 def main() -> int:
     now = datetime.now(timezone.utc)
     day = now.strftime("%Y-%m-%d")
@@ -92,6 +305,7 @@ def main() -> int:
     new_file = not csv_path.exists()
     errors: list[str] = []
     total = 0
+    present_states: list[str] = []
 
     with csv_path.open("a", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=COLUMNS)
@@ -103,6 +317,7 @@ def main() -> int:
             if payload is None:
                 errors.append(f"{state} dynamic: {err}")
                 continue
+            present_states.append(state)
 
             # one raw snapshot per state per day (first successful poll)
             raw_path = day_dir / f"raw_{state}_dynamic.json.gz"
@@ -125,7 +340,7 @@ def main() -> int:
                 })
                 total += 1
 
-            # static feed: refresh once per day
+            # static feed: refresh once per day (also used by the weather step)
             static_path = day_dir / f"static_{state}.json.gz"
             if not static_path.exists():
                 spayload, serr = fetch(urls["static"])
@@ -135,12 +350,22 @@ def main() -> int:
                 elif serr:
                     errors.append(f"{state} static: {serr}")
 
+    # --- weather (fail-soft: never breaks TPIMS collection above) ---
+    wx_rows, wx_note = 0, ""
+    try:
+        wx_rows, wx_note = collect_weather(day_dir, stamp, present_states)
+    except Exception as e:  # noqa: BLE001
+        wx_note = f"weather error: {type(e).__name__}: {e}"
+
     log = day_dir / "poll_log.txt"
     with log.open("a") as fh:
-        fh.write(f"{stamp} rows={total} errors={'; '.join(errors) or 'none'}\n")
+        fh.write(
+            f"{stamp} rows={total} weather_rows={wx_rows} "
+            f"weather=({wx_note}) errors={'; '.join(errors) or 'none'}\n"
+        )
 
-    print(f"{stamp} — {total} rows appended. Errors: {errors or 'none'}")
-    # Exit 0 even with partial errors: we want the commit of whatever succeeded.
+    print(f"{stamp} — {total} TPIMS rows, {wx_rows} weather rows. "
+          f"weather=({wx_note}) errors={errors or 'none'}")
     return 0 if total > 0 or not errors else 1
 
 
