@@ -2,11 +2,12 @@ name: TPIMS poller
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "3 */6 * * *"
   workflow_dispatch: {}
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: tpims-poll
@@ -15,7 +16,7 @@ concurrency:
 jobs:
   poll:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
 
@@ -25,14 +26,22 @@ jobs:
 
       - run: pip install requests
 
-      - name: Poll TPIMS feeds
-        run: python poll_tpims.py
-
-      - name: Commit data
+      - name: Poll loop (every 15 min for ~5.5h)
         run: |
           git config user.name "tpims-poller"
           git config user.email "parkalive.app@gmail.com"
-          git add data/
-          git diff --cached --quiet || git commit -m "poll $(date -u +%Y-%m-%dT%H:%M)Z [skip ci]"
-          git pull --rebase origin main || true
-          git push
+          end=$(( $(date +%s) + 19800 ))
+          while [ "$(date +%s)" -lt "$end" ]; do
+            python poll_tpims.py || true
+            git add data/
+            git commit -m "poll $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" || true
+            git pull --rebase origin main || true
+            git push || true
+            sleep 900
+          done
+
+      - name: Re-trigger next run
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run poll.yml --ref main || true
