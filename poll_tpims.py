@@ -30,7 +30,11 @@ FEEDS = {
         "static": "https://truckparking.travelmidwest.com/TPIMS_Static.json",
     },
     "IN": {
-        "dynamic": "https://content.trafficwise.org/json/tpims.json",
+        # NOTE (fix 2026-07-07): tpims.json lists roadside SIGNS (DMS), not
+        # parking sites — values are buried in HTML text. rest_area.json is the
+        # per-site feed (spaces_available, capacity, last_data, open/closed),
+        # so we poll it as the dynamic source too.
+        "dynamic": "https://content.trafficwise.org/json/rest_area.json",
         "static": "https://content.trafficwise.org/json/rest_area.json",
     },
     "KY": {
@@ -93,6 +97,46 @@ def _rows_from_payload(payload) -> list[dict]:
         else:
             payload = [payload]
     return [r for r in payload if isinstance(r, dict)]
+
+
+def _row_indiana(r: dict) -> dict | None:
+    """Normalize one Indiana rest_area.json feature (fix 2026-07-07).
+
+    Format: GeoJSON feature with properties.tpims = {spaces_available,
+    tpims_message, capacity, last_data, site_nbr, auto_validate, ...} and
+    properties.site_area_status = open/closed.
+    Veracity mapping: tpims_message numeric -> exact count; "LOW" -> LOW;
+    "X"/empty -> Unknown (sign dark / no data). spaces_available is NOT used
+    when the message is LOW/X (it can go negative — in/out counter drift).
+    trust_data <- raw auto_validate (semantics decided at ingestion, not here).
+    """
+    props = r.get("properties") or {}
+    tp = props.get("tpims") or {}
+    if not tp:
+        return None
+    msg = str(tp.get("tpims_message") if tp.get("tpims_message") is not None else "").strip()
+    if msg.lstrip("-").isdigit() and not msg.startswith("-"):
+        avail = msg
+    elif msg.upper() == "LOW":
+        avail = "LOW"
+    else:  # "X", "", anything else = data not shown/available
+        avail = "Unknown"
+    ts = str(tp.get("last_data") or "").strip()
+    if ts:
+        ts = ts.replace(" ", "T", 1)
+        if len(ts) > 3 and ts[-3] in "+-":  # "-04" -> "-04:00"
+            ts += ":00"
+    status = str(props.get("site_area_status") or "").strip().lower()
+    return {
+        "site_id": str(r.get("id") or tp.get("site_nbr") or ""),
+        "time_stamp": ts,
+        "reported_available": avail,
+        "capacity": tp.get("capacity"),
+        "trend": None,
+        "open": True if status == "open" else (False if status == "closed" else None),
+        "trust_data": tp.get("auto_validate"),
+        "low_threshold": None,
+    }
 
 
 def fetch(url: str) -> tuple[object | None, str]:
@@ -326,18 +370,22 @@ def main() -> int:
                     json.dump(payload, gz)
 
             for r in _rows_from_payload(payload):
-                w.writerow({
-                    "polled_at_utc": stamp,
-                    "state": state,
-                    "site_id": _get(r, "siteId", "id", "site"),
-                    "time_stamp": _get(r, "timeStamp", "timestamp", "lastUpdated"),
-                    "reported_available": _get(r, "reportedAvailable", "available", "availableSpaces", "spacesAvailable"),
-                    "capacity": _get(r, "capacity", "totalSpaces"),
-                    "trend": _get(r, "trend"),
-                    "open": _get(r, "open", "isOpen"),
-                    "trust_data": _get(r, "trustData", "trust"),
-                    "low_threshold": _get(r, "lowThreshold"),
-                })
+                if state == "IN":
+                    row = _row_indiana(r)
+                    if row is None:
+                        continue
+                else:
+                    row = {
+                        "site_id": _get(r, "siteId", "id", "site"),
+                        "time_stamp": _get(r, "timeStamp", "timestamp", "lastUpdated"),
+                        "reported_available": _get(r, "reportedAvailable", "available", "availableSpaces", "spacesAvailable"),
+                        "capacity": _get(r, "capacity", "totalSpaces"),
+                        "trend": _get(r, "trend"),
+                        "open": _get(r, "open", "isOpen"),
+                        "trust_data": _get(r, "trustData", "trust"),
+                        "low_threshold": _get(r, "lowThreshold"),
+                    }
+                w.writerow({"polled_at_utc": stamp, "state": state, **row})
                 total += 1
 
             # static feed: refresh once per day (also used by the weather step)
