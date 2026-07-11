@@ -237,3 +237,37 @@ polled_at_utc,state,site_id,lat,lng,temp_f,short_forecast,precip_pct,wind_mph,sn
 2026-07-11T01:50:23Z,KY,KY00075IS0017700S75SRA177,38.9388,-84.6339,77,Slight Chance Showers And Thunderstorms,21,3,False,False,True,True,False,0.1
 2026-07-11T01:50:23Z,KY,KY00075IS0016800SCRITENWS,38.8196,-84.6015,77,Slight Chance Showers And Thunderstorms,19,3,False,False,True,True,False,0.1
 2026-07-11T01:50:23Z,KY,KY00075IS0000100N75WELCOM,36.6162,-84.1054,78,Chance Showers And Thunderstorms,40,3,False,False,True,True,False,0.1
+2026-07-11T02:07:37Z,IN,322,38.195,-87.8597,82,Slight Chance Showers And Thunderstorms,19,1,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,317,38.5852,-85.7768,81,Mostly Cloudy,12,1,False,False,False,False,True,0.2
+2026-07-11T02:07:37Z,IN,316,38.5859,-85.7809,81,Mostly Cloudy,12,1,False,False,False,False,True,0.2
+2026-07-11T02:07:37Z,IN,315,39.2602,-85.9521,78,Scattered Showers And Thunderstorms,27,2,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,314,39.2767,-85.9569,80,Scattered Showers And Thunderstorms,26,3,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,313,40.1578,-86.5387,78,Scattered Showers And Thunderstorms,32,3,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,312,40.1722,-86.5522,78,Scattered Showers And Thunderstorms,32,3,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,311,40.6992,-87.0628,75,Chance Showers And Thunderstorms,32,5,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,310,40.6984,-87.0646,75,Chance Showers And Thunderstorms,32,5,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,308,41.1653,-87.271,71,Slight Chance Showers And Thunderstorms,21,5,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,309,41.1666,-87.2749,71,Slight Chance Showers And Thunderstorms,21,5,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,318,40.3543,-85.5576,77,Scattered Showers And Thunderstorms,37,2,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,319,40.3569,-85.56,77,Scattered Showers And Thunderstorms,37,2,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,320,41.2963,-85.0863,78,Mostly Cloudy,10,0,False,False,False,False,True,0.2
+2026-07-11T02:07:37Z,IN,321,41.5803,-85.0597,79,Mostly Cloudy,7,5,False,False,False,False,True,0.2
+2026-07-11T02:07:37Z,IN,300,39.4417,-87.5002,79,Scattered Showers And Thunderstorms,39,2,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,302,39.6517,-86.3967,79,Scattered Showers And Thunderstorms,30,3,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,301,39.6541,-86.4005,79,Scattered Showers And Thunderstorms,30,3,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,303,39.8243,-85.7039,77,Scattered Showers And Thunderstorms,37,2,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,304,39.8266,-85.704,77,Scattered Showers And Thunderstorms,37,2,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,IN,305,39.8605,-85.0259,76,Chance Showers And Thunderstorms,44,3,False,False,True,True,True,0.2
+2026-07-11T02:07:37Z,KY,KY00065IS0000020N65WELCOM,36.6434,-86.5687,78,Chance Showers And Thunderstorms,50,5,False,False,True,True,False,0.1
+2026-07-11T02:07:37Z,KY,KY00065IS000020NSMARATHON,36.6612,-86.5553,78,Chance Showers And Thunderstorms,50,5,False,False,True,True,False,0.1
+2026-07-11T02:07:37Z,KY,KY00065IS0000340NWEIGHS34,36.6868,-86.5379,79,Chance Showers And Thunderstorms,50,5,False,False,True,True,False,0.1
+2026-07-11T02:07:37Z,KY,KY00065IS0011400S65SRA114,37.9464,-85.6905,80,Mostly Cloudy,14,2,False,False,False,False,False,0.0
+2026-07-11T02:07:37Z,KY,KY00065IS0005900S65SRA059,37.239,-85.9297,78,Chance Showers And Thunderstorms,31,2,False,False,True,True,False,0.1
+2026-07-11T02:07:37Z,KY,KY00065IS0005900N65NRA059,37.2384,-85.9271,78,Chance Showers And Thunderstorms,31,2,False,False,True,True,False,0.1
+2026-07-11T02:07:37Z,KY,KY00075IS0003300NWEIGHS33,37.0422,-84.0968,74,Slight Chance Showers And Thunderstorms,20,5,False,False,True,True,False,0.1
+2026-07-11T02:07:37Z,KY,KY00075IS0003400SWEIGHS34,37.048,-84.0997,75,Slight Chance Showers And Thunderstorms,20,5,False,False,True,True,False,0.1
+2026-07-11T02:07:37Z,KY,KY00075IS0017700N75NRA177,38.937,-84.6309,77,Slight Chance Showers And Thunderstorms,21,3,False,False,True,True,False,0.1
+2026-07-11T02:07:37Z,KY,KY00075IS0007500SWALTONWS,38.8653,-84.6476,77,Slight Chance Showers And Thunderstorms,19,3,False,False,True,True,False,0.1
+2026-07-11T02:07:37Z,KY,KY00075IS0017700S75SRA177,38.9388,-84.6339,77,Slight Chance Showers And Thunderstorms,21,3,False,False,True,True,False,0.1
+2026-07-11T02:07:37Z,KY,KY00075IS0016800SCRITENWS,38.8196,-84.6015,77,Slight Chance Showers And Thunderstorms,19,3,False,False,True,True,False,0.1
+2026-07-11T02:07:37Z,KY,KY00075IS0000100N75WELCOM,36.6162,-84.1054,78,Chance Showers And Thunderstorms,40,3,False,False,True,True,False,0.1
