@@ -4249,3 +4249,88 @@ polled_at_utc,state,site_id,lat,lng,temp_f,short_forecast,precip_pct,wind_mph,sn
 2026-07-17T13:42:10Z,KY,KY00075IS0017700S75SRA177,38.9388,-84.6339,77,Areas Of Smoke,6,2,False,False,False,False,False,0.0
 2026-07-17T13:42:10Z,KY,KY00075IS0016800SCRITENWS,38.8196,-84.6015,77,Areas Of Smoke,6,2,False,False,False,False,False,0.0
 2026-07-17T13:42:10Z,KY,KY00075IS0000100N75WELCOM,36.6162,-84.1054,77,Patchy Fog,15,0,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IL,IL00064IE008500039,38.273,-88.8496,77,Mostly Sunny,12,1,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IS011400023,38.5965,-88.9677,79,Slight Chance Showers And Thunderstorms,20,0,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00074IE002800030,41.2334,-90.333,78,Sunny,11,5,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IS033300046,41.3918,-87.7749,77,Smoke,21,0,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00080IW005100013,41.3937,-89.5591,78,Mostly Sunny,14,0,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00055IS002700019,38.8723,-89.8511,78,Slight Chance Showers And Thunderstorms,21,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IS007900047,38.0962,-88.9138,77,Mostly Sunny,11,2,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00070IW002700015,38.7884,-89.6889,78,Slight Chance Showers And Thunderstorms,21,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00074IW002800020,41.2141,-90.3308,78,Sunny,11,5,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IN011400033,38.5963,-88.9638,79,Slight Chance Showers And Thunderstorms,20,0,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00064IW008500012,38.2766,-88.8012,77,Mostly Sunny,12,1,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00072IW015200014,39.9888,-88.7852,79,Slight Chance Showers And Thunderstorms,20,3,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00074IW015600009,40.2711,-88.6701,79,Chance Showers And Thunderstorms,30,3,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00055IN002700029,38.8649,-89.8532,78,Slight Chance Showers And Thunderstorms,21,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00055IN019400031,40.8234,-88.6875,78,Patchy Smoke,28,0,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IS026800022,40.5613,-88.0615,78,Patchy Smoke,32,0,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00064IE002500038,38.5481,-89.7731,78,Slight Chance Showers And Thunderstorms,19,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IN033300049,41.3892,-87.7729,77,Smoke,21,0,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IN022200048,39.9218,-88.299,79,Slight Chance Showers And Thunderstorms,21,3,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00074IW020800052,40.1298,-87.7441,79,Chance Showers And Thunderstorms,37,1,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00064IW013000053,38.2322,-87.9882,77,Partly Sunny,6,0,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00070IE008600051,39.0651,-88.6745,77,Slight Chance Showers And Thunderstorms,19,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00080IE005100040,41.3938,-89.5665,78,Mostly Sunny,14,0,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00070IE002700042,38.7849,-89.7023,77,Slight Chance Showers And Thunderstorms,21,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00080IW011700016,41.4473,-88.3285,78,Areas Of Smoke,19,0,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00055IS019400021,40.8371,-88.6833,78,Patchy Smoke,29,0,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00039IN008500036,41.7236,-89.0062,76,Areas Of Smoke,17,5,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IN007900034,38.0297,-88.9203,77,Mostly Sunny,11,1,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00080IE011700043,41.4314,-88.3454,77,Areas Of Smoke,20,0,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00074IE015600037,40.2732,-88.6762,79,Chance Showers And Thunderstorms,29,3,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00055IN014900028,40.3599,-89.1099,76,Slight Chance Showers And Thunderstorms,23,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00055IN010400050,39.8627,-89.5948,78,Slight Chance Showers And Thunderstorms,18,3,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00055IN006400027,39.3465,-89.6408,77,Slight Chance Showers And Thunderstorms,21,1,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00055IS006400017,39.3523,-89.6447,77,Slight Chance Showers And Thunderstorms,21,1,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00072IE015200041,39.9923,-88.7827,79,Slight Chance Showers And Thunderstorms,20,3,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00024IW003700010,37.1593,-88.6798,77,Sunny,8,1,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00064IW002500011,38.5491,-89.7633,78,Slight Chance Showers And Thunderstorms,19,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IS022200054,39.9314,-88.3043,79,Slight Chance Showers And Thunderstorms,21,3,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00039IS008500026,41.7285,-89.0105,76,Areas Of Smoke,17,5,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00074IW006200004,40.8802,-90.0895,77,Slight Chance Showers And Thunderstorms,16,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IN026800032,40.5505,-88.0605,78,Patchy Smoke,32,0,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00070IW008700045,39.0679,-88.6704,77,Slight Chance Showers And Thunderstorms,19,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IS016500018,39.1993,-88.502,76,Slight Chance Showers And Thunderstorms,18,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00074IW011400006,40.6111,-89.2323,78,Slight Chance Showers And Thunderstorms,24,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00074IE011400005,40.6125,-89.245,78,Slight Chance Showers And Thunderstorms,24,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00074IE006200001,40.8788,-90.0936,77,Slight Chance Showers And Thunderstorms,16,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00070IW014900008,39.4228,-87.6617,78,Slight Chance Showers And Thunderstorms,22,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IN016500044,39.1898,-88.5031,76,Slight Chance Showers And Thunderstorms,18,2,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00055IS010400024,39.8871,-89.5966,78,Slight Chance Showers And Thunderstorms,18,3,False,False,True,True,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IS003200025,37.4699,-89.1329,77,Mostly Sunny,10,1,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IL,IL00057IN003200035,37.4661,-89.1324,77,Mostly Sunny,10,1,False,False,False,False,True,0.2
+2026-07-17T13:58:35Z,IN,322,38.195,-87.8597,77,Partly Sunny,6,1,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IN,317,38.5852,-85.7768,79,Slight Chance Showers And Thunderstorms,15,1,False,False,True,True,False,0.1
+2026-07-17T13:58:35Z,IN,316,38.5859,-85.7809,79,Slight Chance Showers And Thunderstorms,15,1,False,False,True,True,False,0.1
+2026-07-17T13:58:35Z,IN,315,39.2602,-85.9521,78,Slight Chance Showers And Thunderstorms,19,1,False,False,True,True,False,0.1
+2026-07-17T13:58:35Z,IN,314,39.2767,-85.9569,78,Slight Chance Showers And Thunderstorms,19,1,False,False,True,True,False,0.1
+2026-07-17T13:58:35Z,IN,313,40.1578,-86.5387,78,Patchy Smoke,37,2,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IN,312,40.1722,-86.5522,78,Patchy Smoke,37,2,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IN,311,40.6992,-87.0628,79,Areas Of Smoke,18,0,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IN,310,40.6984,-87.0646,79,Areas Of Smoke,18,0,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IN,308,41.1653,-87.271,77,Smoke,23,0,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IN,309,41.1666,-87.2749,77,Smoke,23,0,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IN,318,40.3543,-85.5576,77,Areas Of Smoke,20,3,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IN,319,40.3569,-85.56,77,Areas Of Smoke,20,3,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IN,320,41.2963,-85.0863,75,Smoke,8,5,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IN,321,41.5803,-85.0597,75,Smoke,5,5,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IN,300,39.4417,-87.5002,78,Slight Chance Showers And Thunderstorms,24,2,False,False,True,True,False,0.1
+2026-07-17T13:58:35Z,IN,302,39.6517,-86.3967,78,Chance Showers And Thunderstorms,31,3,False,False,True,True,False,0.1
+2026-07-17T13:58:35Z,IN,301,39.6541,-86.4005,78,Chance Showers And Thunderstorms,31,3,False,False,True,True,False,0.1
+2026-07-17T13:58:35Z,IN,303,39.8243,-85.7039,78,Patchy Smoke,23,3,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IN,304,39.8266,-85.704,78,Patchy Smoke,23,3,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,IN,305,39.8605,-85.0259,75,Areas Of Smoke,5,3,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,KY,KY00065IS0000020N65WELCOM,36.6434,-86.5687,76,Patchy Fog,12,0,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,KY,KY00065IS000020NSMARATHON,36.6612,-86.5553,78,Patchy Fog,11,3,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,KY,KY00065IS0000340NWEIGHS34,36.6868,-86.5379,76,Patchy Fog,11,1,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,KY,KY00065IS0011400S65SRA114,37.9464,-85.6905,78,Mostly Sunny,13,1,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,KY,KY00065IS0005900S65SRA059,37.239,-85.9297,77,Mostly Sunny,11,1,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,KY,KY00065IS0005900N65NRA059,37.2384,-85.9271,77,Mostly Sunny,11,1,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,KY,KY00075IS0003300NWEIGHS33,37.0422,-84.0968,75,Patchy Fog,15,0,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,KY,KY00075IS0003400SWEIGHS34,37.048,-84.0997,76,Patchy Fog,15,1,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,KY,KY00075IS0017700N75NRA177,38.937,-84.6309,77,Areas Of Smoke,6,2,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,KY,KY00075IS0007500SWALTONWS,38.8653,-84.6476,77,Areas Of Smoke,6,2,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,KY,KY00075IS0017700S75SRA177,38.9388,-84.6339,77,Areas Of Smoke,6,2,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,KY,KY00075IS0016800SCRITENWS,38.8196,-84.6015,77,Areas Of Smoke,6,2,False,False,False,False,False,0.0
+2026-07-17T13:58:35Z,KY,KY00075IS0000100N75WELCOM,36.6162,-84.1054,77,Patchy Fog,15,0,False,False,False,False,False,0.0
