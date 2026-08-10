@@ -7,7 +7,16 @@ name: TPIMS poller
 on:
   schedule:
     - cron: "3 */6 * * *"   # backup kick every 6h (coarse crons are more reliable)
-  workflow_dispatch: {}       # manual start (use this to kick off the chain)
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "One controlled poll or restart the continuous chain"
+        required: true
+        default: once
+        type: choice
+        options:
+          - once
+          - continuous
 
 permissions:
   contents: write
@@ -23,6 +32,8 @@ jobs:
     timeout-minutes: 350      # ~5h50m, under GitHub's 6h job limit
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -30,22 +41,48 @@ jobs:
 
       - run: pip install requests
 
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Poll once without changing repository history
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'once'
+        env:
+          PARKALIVE_DATA_DIR: data-validation
+        run: timeout 300s python poll_tpims.py
+
+      - name: Save controlled poll output
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'once' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: controlled-poll-${{ github.run_id }}
+          path: data-validation/
+          retention-days: 1
+          if-no-files-found: warn
+
       - name: Poll loop (every 15 min for ~5.5h)
+        if: github.event_name == 'schedule' || inputs.mode == 'continuous'
         run: |
           git config user.name "tpims-poller"
           git config user.email "parkalive.app@gmail.com"
           end=$(( $(date +%s) + 19800 ))   # 5.5 hours from now
           while [ "$(date +%s)" -lt "$end" ]; do
-            python poll_tpims.py || true
+            cycle_start=$(date +%s)
+            if ! timeout 600s python poll_tpims.py; then
+              echo "Poll exceeded its ten-minute safety window or failed; continuing safely"
+            fi
             git add data/
             git commit -m "poll $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]" || true
             git pull --rebase origin main || true
             git push || true
-            sleep 900
+            now=$(date +%s)
+            wait_seconds=$(( 900 - (now - cycle_start) ))
+            if [ "$wait_seconds" -gt 0 ] && [ $(( now + wait_seconds )) -lt "$end" ]; then
+              sleep "$wait_seconds"
+            fi
           done
 
       - name: Re-trigger next run (keep the chain going)
-        if: always()
+        if: always() && github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || inputs.mode == 'continuous')
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run poll.yml --ref main || true
+        run: gh workflow run poll.yml --ref main -f mode=continuous || true
