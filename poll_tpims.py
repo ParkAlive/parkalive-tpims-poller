@@ -14,15 +14,20 @@ from __future__ import annotations
 import csv
 import gzip
 import json
+import os
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
 
 ROOT = Path(__file__).resolve().parent
-DATA = ROOT / "data"
+DATA = Path(os.environ.get("PARKALIVE_DATA_DIR", ROOT / "data"))
+
+REQUEST_TIMEOUT_SECONDS = 9
+WEATHER_WORKERS = 8
 
 FEEDS = {
     "IL": {
@@ -40,14 +45,6 @@ FEEDS = {
     "KY": {
         "dynamic": "http://www.trimarc.org/dat/tpims/TPIMS_Dynamic.json",
         "static": "http://www.trimarc.org/dat/tpims/TPIMS_Static.json",
-    },
-    "MN": {
-        "dynamic": "http://iris.dot.state.mn.us/iris/TPIMS_dynamic",
-        "static": "http://iris.dot.state.mn.us/iris/TPIMS_static",
-    },
-    "OH": {
-        "dynamic": "http://ipsens.webhop.biz/ODOT/MaastoDataFeeds/TPIMS/Dynamic",
-        "static": "http://ipsens.webhop.biz/ODOT/MaastoDataFeeds/TPIMS/Static",
     },
 }
 
@@ -141,7 +138,7 @@ def _row_indiana(r: dict) -> dict | None:
 
 def fetch(url: str) -> tuple[object | None, str]:
     try:
-        r = requests.get(url, headers=HEADERS, timeout=60)
+        r = requests.get(url, headers=HEADERS, timeout=REQUEST_TIMEOUT_SECONDS)
         r.raise_for_status()
         return r.json(), ""
     except Exception as e:  # noqa: BLE001
@@ -150,7 +147,7 @@ def fetch(url: str) -> tuple[object | None, str]:
 
 def _wfetch(url: str) -> object | None:
     try:
-        r = requests.get(url, headers=NWS_HEADERS, timeout=30)
+        r = requests.get(url, headers=NWS_HEADERS, timeout=REQUEST_TIMEOUT_SECONDS)
         r.raise_for_status()
         return r.json()
     except Exception:  # noqa: BLE001
@@ -214,6 +211,37 @@ def _m_weather_delta(severe, snow, ice, heavy, rain) -> float:
     return 0.0
 
 
+def _fetch_point_weather(
+    point: tuple[float, float],
+    hourly_url: str | None,
+) -> tuple[tuple[float, float], str | None, dict | None]:
+    """Fetch one point with a strict per-request timeout for parallel execution."""
+    la, ln = point
+    if not hourly_url:
+        pts = _wfetch(f"https://api.weather.gov/points/{la},{ln}")
+        if isinstance(pts, dict):
+            hourly_url = (pts.get("properties") or {}).get("forecastHourly")
+    if not hourly_url:
+        return point, None, None
+    hourly = _wfetch(hourly_url)
+    try:
+        period = hourly["properties"]["periods"][0]
+    except (TypeError, KeyError, IndexError):
+        return point, hourly_url, None
+    precip = (period.get("probabilityOfPrecipitation") or {}).get("value")
+    wind_mph = None
+    for token in str(period.get("windSpeed") or "").split():
+        if token.isdigit():
+            wind_mph = int(token)
+            break
+    return point, hourly_url, {
+        "temp_f": period.get("temperature"),
+        "short_forecast": period.get("shortForecast") or "",
+        "precip_pct": precip,
+        "wind_mph": wind_mph,
+    }
+
+
 def _load_grid_cache() -> dict:
     p = DATA / "nws_grid_cache.json"
     if p.exists():
@@ -269,38 +297,23 @@ def collect_weather(day_dir: Path, stamp: str, present_states: list[str]) -> tup
     cache = _load_grid_cache()
     point_wx: dict[tuple[float, float], dict] = {}
     unique_points = list({(la, ln) for _, _, la, ln in sites})[:MAX_WEATHER_POINTS]
-    for la, ln in unique_points:
-        key = f"{la},{ln}"
-        hourly_url = cache.get(key)
-        if not hourly_url:
-            pts = _wfetch(f"https://api.weather.gov/points/{la},{ln}")
-            if isinstance(pts, dict):
-                hourly_url = (pts.get("properties") or {}).get("forecastHourly")
+    workers = min(WEATHER_WORKERS, len(unique_points))
+    if workers:
+        with ThreadPoolExecutor(max_workers=workers, thread_name_prefix="nws") as pool:
+            futures = {
+                pool.submit(
+                    _fetch_point_weather,
+                    point,
+                    cache.get(f"{point[0]},{point[1]}"),
+                ): point
+                for point in unique_points
+            }
+            for future in as_completed(futures):
+                point, hourly_url, weather = future.result()
                 if hourly_url:
-                    cache[key] = hourly_url
-            time.sleep(0.2)
-        if not hourly_url:
-            continue
-        hr = _wfetch(hourly_url)
-        time.sleep(0.2)
-        try:
-            per = hr["properties"]["periods"][0]
-        except (TypeError, KeyError, IndexError):
-            continue
-        short = per.get("shortForecast") or ""
-        precip = (per.get("probabilityOfPrecipitation") or {}).get("value")
-        wind = per.get("windSpeed") or ""
-        wind_mph = None
-        for tok in str(wind).split():
-            if tok.isdigit():
-                wind_mph = int(tok)
-                break
-        point_wx[(la, ln)] = {
-            "temp_f": per.get("temperature"),
-            "short_forecast": short,
-            "precip_pct": precip,
-            "wind_mph": wind_mph,
-        }
+                    cache[f"{point[0]},{point[1]}"] = hourly_url
+                if weather:
+                    point_wx[point] = weather
     _save_grid_cache(cache)
 
     # 4) write one weather row per site

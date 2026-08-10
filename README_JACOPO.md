@@ -1,8 +1,10 @@
 # 👉 TPIMS Poller — cosa devi fare TU (10 minuti, una volta sola)
 
 Questo mini-progetto scarica **ogni 15 minuti** i posti-camion liberi **REALI** di
-**Illinois, Indiana, Kentucky, Minnesota, Ohio** (feed pubblici TPIMS, nessuna
-registrazione). Gira **gratis** su GitHub Actions, i cui server sono **in USA** —
+**Illinois, Indiana e Kentucky** (feed pubblici TPIMS, nessuna registrazione).
+Minnesota e Ohio vengono raccolti dal collector privato tramite i nuovi endpoint
+ufficiali, perché i vecchi feed non sono più raggiungibili. Il poller gira
+**gratis** su GitHub Actions, i cui server sono **in USA** —
 per questo funziona anche se dall'Italia i feed rispondono "403 Forbidden".
 
 **A cosa serve:** è il nostro "controllo di realtà". Confrontiamo le stime del
@@ -68,9 +70,9 @@ Poi fai i passi **3–6** qui sopra.
 
 ## Cosa aspettarsi al primo run (leggi prima di allarmarti)
 
-- **Caso buono:** il CSV ha righe per (quasi) tutti e 5 gli stati → siamo in pista.
-- **Caso "alcuni stati sì, altri no":** normale. Alcuni feed (MN/OH) sono su host
-  particolari; se 3 su 5 rispondono, ci bastano per partire. Me lo dici e vediamo.
+- **Caso buono:** il CSV ha righe per Illinois, Indiana e Kentucky → siamo in pista.
+- **Caso "alcuni stati sì, altri no":** il ciclo prosegue e registra chiaramente quale
+  fonte non ha risposto, senza restare bloccato per ore.
 - **Caso "ancora 0 righe, tutti 403":** vorrebbe dire che il blocco non è solo
   geografico. Poco probabile dagli USA, ma se capita **non insistere**: mandami il
   log (lo trovi in `data/…/poll_log.txt`) e cambiamo strategia.
