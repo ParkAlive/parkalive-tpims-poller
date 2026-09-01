@@ -693,3 +693,4 @@
 2026-09-01T19:56:09Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
 2026-09-01T20:11:10Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
 2026-09-01T20:26:09Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
+2026-09-01T20:41:09Z rows=64 weather_rows=64 weather=(64 points, 64 sites) errors=IN dynamic: ReadTimeout: HTTPSConnectionPool(host='content.trafficwise.org', port=443): Read timed out. (read timeout=9)
