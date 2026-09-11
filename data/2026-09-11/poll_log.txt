@@ -704,3 +704,4 @@
 2026-09-11T22:16:09Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
 2026-09-11T22:31:09Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
 2026-09-11T22:46:09Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
+2026-09-11T23:01:10Z rows=82 weather_rows=81 weather=(81 points, 82 sites) errors=KY dynamic: ConnectTimeout: HTTPConnectionPool(host='www.trimarc.org', port=80): Max retries exceeded with url: /dat/tpims/TPIMS_Dynamic.json (Caused by ConnectTimeoutError(<HTTPConnection(host='www.trimarc.org', port=80) at 0x7ff2cb9727b0>, 'Connection to www.trimarc.org timed out. (connect timeout=9)'))
