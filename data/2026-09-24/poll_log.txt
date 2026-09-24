@@ -537,3 +537,4 @@
 2026-09-24T15:04:28Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
 2026-09-24T15:04:34Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
 2026-09-24T15:04:41Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
+2026-09-24T15:04:47Z rows=64 weather_rows=64 weather=(64 points, 64 sites) errors=IN dynamic: ConnectTimeout: HTTPSConnectionPool(host='content.trafficwise.org', port=443): Max retries exceeded with url: /json/rest_area.json (Caused by ConnectTimeoutError(<HTTPSConnection(host='content.trafficwise.org', port=443) at 0x7fd3b2d6eae0>, 'Connection to content.trafficwise.org timed out. (connect timeout=9)'))
