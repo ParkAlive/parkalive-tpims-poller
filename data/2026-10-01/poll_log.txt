@@ -625,3 +625,4 @@
 2026-10-01T22:07:46Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
 2026-10-01T22:22:46Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
 2026-10-01T22:37:46Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
+2026-10-01T22:52:46Z rows=44 weather_rows=43 weather=(43 points, 44 sites) errors=IL dynamic: HTTPError: 503 Server Error: Service Unavailable for url: https://truckparking.travelmidwest.com/TPIMS_Dynamic.json

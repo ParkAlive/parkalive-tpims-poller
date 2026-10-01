@@ -58937,3 +58937,46 @@ polled_at_utc,state,site_id,lat,lng,temp_f,short_forecast,precip_pct,wind_mph,sn
 2026-10-01T22:37:46Z,KY,KY00075IS0017700S75SRA177,38.9388,-84.6339,86,Partly Cloudy,1,8,False,False,False,False,False,0.0
 2026-10-01T22:37:46Z,KY,KY00075IS0016800SCRITENWS,38.8196,-84.6015,86,Partly Cloudy,0,8,False,False,False,False,False,0.0
 2026-10-01T22:37:46Z,KY,KY00075IS0000100N75WELCOM,36.6162,-84.1054,84,Mostly Clear,0,5,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,322,38.195,-87.8597,89,Mostly Cloudy,0,12,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,317,38.5852,-85.7768,87,Mostly Cloudy,1,5,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,316,38.5859,-85.7809,87,Mostly Cloudy,1,5,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,315,39.2602,-85.9521,87,Mostly Cloudy,2,9,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,314,39.2767,-85.9569,87,Mostly Cloudy,2,9,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,313,40.1578,-86.5387,83,Mostly Cloudy,12,12,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,312,40.1722,-86.5522,83,Mostly Cloudy,12,12,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,311,40.6992,-87.0628,79,Chance Showers And Thunderstorms,49,10,False,False,True,True,False,0.1
+2026-10-01T22:52:46Z,IN,310,40.6984,-87.0646,79,Chance Showers And Thunderstorms,49,10,False,False,True,True,False,0.1
+2026-10-01T22:52:46Z,IN,308,41.1653,-87.271,73,Rain,80,5,False,False,True,False,False,0.05
+2026-10-01T22:52:46Z,IN,309,41.1666,-87.2749,73,Rain,80,5,False,False,True,False,False,0.05
+2026-10-01T22:52:46Z,IN,318,40.3543,-85.5576,85,Mostly Cloudy,6,12,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,319,40.3569,-85.56,85,Mostly Cloudy,6,12,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,320,41.2963,-85.0863,80,Chance Showers And Thunderstorms,28,10,False,False,True,True,False,0.1
+2026-10-01T22:52:46Z,IN,321,41.5803,-85.0597,79,Chance Showers And Thunderstorms,36,10,False,False,True,True,False,0.1
+2026-10-01T22:52:46Z,IN,300,39.4417,-87.5002,86,Mostly Cloudy,9,9,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,302,39.6517,-86.3967,85,Mostly Cloudy,5,12,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,301,39.6541,-86.4005,85,Mostly Cloudy,5,12,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,303,39.8243,-85.7039,86,Mostly Cloudy,3,10,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,304,39.8266,-85.704,86,Mostly Cloudy,3,10,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,305,39.8605,-85.0259,84,Mostly Cloudy,1,9,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,323,39.29,-85.1688,85,Mostly Cloudy,1,7,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,IN,702,41.7472,-85.3285,77,Chance Showers And Thunderstorms,50,10,False,False,True,True,False,0.1
+2026-10-01T22:52:46Z,IN,701,41.5889,-87.2173,70,Rain,99,5,False,False,True,False,False,0.05
+2026-10-01T22:52:46Z,IN,704,41.7058,-86.6212,70,Showers And Thunderstorms,90,10,False,False,True,True,False,0.1
+2026-10-01T22:52:46Z,IN,703,41.7071,-86.6235,70,Showers And Thunderstorms,90,10,False,False,True,True,False,0.1
+2026-10-01T22:52:46Z,IN,705,41.733,-86.0057,73,Showers And Thunderstorms Likely,73,10,False,False,True,True,False,0.1
+2026-10-01T22:52:46Z,IN,708,41.7472,-85.3285,77,Chance Showers And Thunderstorms,50,10,False,False,True,True,False,0.1
+2026-10-01T22:52:46Z,IN,707,41.7453,-85.3287,77,Chance Showers And Thunderstorms,50,10,False,False,True,True,False,0.1
+2026-10-01T22:52:46Z,IN,324,41.7353,-86.7933,67,Showers And Thunderstorms,93,10,False,False,True,True,False,0.1
+2026-10-01T22:52:46Z,KY,KY00065IS0000020N65WELCOM,36.6434,-86.5687,88,Mostly Sunny,0,10,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,KY,KY00065IS000020NSMARATHON,36.6612,-86.5553,88,Mostly Sunny,0,10,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,KY,KY00065IS0000340NWEIGHS34,36.6868,-86.5379,88,Mostly Sunny,0,9,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,KY,KY00065IS0011400S65SRA114,37.9464,-85.6905,87,Mostly Cloudy,0,7,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,KY,KY00065IS0005900S65SRA059,37.239,-85.9297,87,Mostly Sunny,0,7,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,KY,KY00065IS0005900N65NRA059,37.2384,-85.9271,87,Mostly Sunny,0,7,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,KY,KY00075IS0003300NWEIGHS33,37.0422,-84.0968,84,Mostly Clear,0,8,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,KY,KY00075IS0003400SWEIGHS34,37.048,-84.0997,84,Mostly Clear,0,8,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,KY,KY00075IS0017700N75NRA177,38.937,-84.6309,86,Partly Cloudy,1,8,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,KY,KY00075IS0007500SWALTONWS,38.8653,-84.6476,86,Partly Cloudy,1,8,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,KY,KY00075IS0017700S75SRA177,38.9388,-84.6339,86,Partly Cloudy,1,8,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,KY,KY00075IS0016800SCRITENWS,38.8196,-84.6015,86,Partly Cloudy,0,8,False,False,False,False,False,0.0
+2026-10-01T22:52:46Z,KY,KY00075IS0000100N75WELCOM,36.6162,-84.1054,84,Mostly Clear,0,5,False,False,False,False,False,0.0
