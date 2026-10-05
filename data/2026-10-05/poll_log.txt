@@ -758,3 +758,4 @@
 2026-10-05T20:45:40Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
 2026-10-05T20:45:46Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
 2026-10-05T20:45:52Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
+2026-10-05T20:45:57Z rows=44 weather_rows=43 weather=(43 points, 44 sites) errors=IL dynamic: ReadTimeout: HTTPSConnectionPool(host='truckparking.travelmidwest.com', port=443): Read timed out. (read timeout=9)
