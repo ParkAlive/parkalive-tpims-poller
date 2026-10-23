@@ -459,3 +459,4 @@
 2026-10-23T15:34:30Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
 2026-10-23T15:34:35Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
 2026-10-23T15:34:40Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
+2026-10-23T15:34:47Z rows=95 weather_rows=93 weather=(94 points, 95 sites) errors=none
