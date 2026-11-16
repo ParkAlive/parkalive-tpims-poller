@@ -1,0 +1,1 @@
+2026-11-16T05:01:41Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
