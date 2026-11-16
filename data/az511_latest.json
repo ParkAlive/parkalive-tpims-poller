@@ -1,6 +1,6 @@
 {
   "source": "Arizona AZ511",
-  "polled_at_utc": "2026-11-16T22:03:18Z",
+  "polled_at_utc": "2026-11-16T22:09:54Z",
   "sites": [
     {
       "id": "8",
@@ -8,7 +8,7 @@
       "latitude": 32.059722,
       "longitude": -110.076111,
       "location": "I-10 / MP 320",
-      "available": 7,
+      "available": 14,
       "capacity": 22,
       "status": "Open"
     },
@@ -18,7 +18,7 @@
       "latitude": 32.235833,
       "longitude": -109.089444,
       "location": "I-10 / MP 388",
-      "available": 4,
+      "available": 5,
       "capacity": 17,
       "status": "Open"
     },
@@ -38,7 +38,7 @@
       "latitude": 33.611667,
       "longitude": -113.645556,
       "location": "I-10 / MP 53",
-      "available": 13,
+      "available": 14,
       "capacity": 20,
       "status": "Open"
     },
@@ -48,7 +48,7 @@
       "latitude": 33.614101,
       "longitude": -113.645433,
       "location": "I-10 / MP 53",
-      "available": 7,
+      "available": 6,
       "capacity": 21,
       "status": "Open"
     },
@@ -58,7 +58,7 @@
       "latitude": 33.621219,
       "longitude": -114.447352,
       "location": "I-10 / MP 5",
-      "available": 6,
+      "available": 4,
       "capacity": 16,
       "status": "Open"
     },
@@ -68,7 +68,7 @@
       "latitude": 32.239224,
       "longitude": -109.08705,
       "location": "I-10 / MP 388",
-      "available": 12,
+      "available": 10,
       "capacity": 17,
       "status": "Open"
     },
@@ -78,7 +78,7 @@
       "latitude": 32.060514,
       "longitude": -110.078068,
       "location": "I-10 / MP 320",
-      "available": 9,
+      "available": 11,
       "capacity": 22,
       "status": "Open"
     }
