@@ -85,3 +85,4 @@
 2026-11-21T04:15:10Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
 2026-11-21T04:15:15Z rows=44 weather_rows=43 weather=(43 points, 44 sites) errors=IL dynamic: HTTPError: 502 Server Error: Proxy Error for url: https://truckparking.travelmidwest.com/TPIMS_Dynamic.json
 2026-11-21T04:15:18Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
+2026-11-21T04:15:26Z rows=95 weather_rows=94 weather=(94 points, 95 sites) errors=none
