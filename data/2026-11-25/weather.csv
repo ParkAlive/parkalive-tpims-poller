@@ -751,3 +751,13 @@ polled_at_utc,state,site_id,lat,lng,temp_f,short_forecast,precip_pct,wind_mph,sn
 2026-11-25T01:47:22Z,KY,KY00075IS0017700S75SRA177,38.9388,-84.6339,36,Mostly Cloudy,0,8,False,False,False,False,False,0.0
 2026-11-25T01:47:22Z,KY,KY00075IS0016800SCRITENWS,38.8196,-84.6015,36,Mostly Cloudy,0,8,False,False,False,False,False,0.0
 2026-11-25T01:47:22Z,KY,KY00075IS0000100N75WELCOM,36.6162,-84.1054,40,Mostly Clear,0,2,False,False,False,False,False,0.0
+2026-11-25T02:02:22Z,IL,IL00080IW005100013,41.3937,-89.5591,33,Mostly Cloudy,0,0,False,False,False,False,False,0.0
+2026-11-25T02:02:22Z,IL,IL00072IW015200014,39.9888,-88.7852,33,Mostly Cloudy,0,7,False,False,False,False,False,0.0
+2026-11-25T02:02:22Z,IL,IL00064IE002500038,38.5481,-89.7731,35,Mostly Cloudy,0,5,False,False,False,False,False,0.0
+2026-11-25T02:02:22Z,IN,314,39.2767,-85.9569,34,Mostly Cloudy,0,8,False,False,False,False,False,0.0
+2026-11-25T02:02:22Z,IN,313,40.1578,-86.5387,31,Mostly Cloudy,0,7,False,False,False,False,False,0.0
+2026-11-25T02:02:22Z,IN,303,39.8243,-85.7039,31,Mostly Cloudy,0,8,False,False,False,False,False,0.0
+2026-11-25T02:02:22Z,IN,305,39.8605,-85.0259,31,Mostly Cloudy,0,7,False,False,False,False,False,0.0
+2026-11-25T02:02:22Z,KY,KY00065IS0000020N65WELCOM,36.6434,-86.5687,43,Mostly Cloudy,0,10,False,False,False,False,False,0.0
+2026-11-25T02:02:22Z,KY,KY00075IS0003400SWEIGHS34,37.048,-84.0997,38,Mostly Clear,0,8,False,False,False,False,False,0.0
+2026-11-25T02:02:22Z,KY,KY00075IS0000100N75WELCOM,36.6162,-84.1054,39,Mostly Clear,0,1,False,False,False,False,False,0.0
